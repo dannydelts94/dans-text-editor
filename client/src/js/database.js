@@ -1,47 +1,57 @@
-import { openDB } from 'idb';
+import { openDB } from "idb";
 
 const initdb = async () =>
-  openDB('jate', 1, {
-    upgrade(db) {
-      if (db.objectStoreNames.contains('jate')) {
-        console.log('jate database already exists');
-        return;
-      }
-      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
-      console.log('jate database created');
-    },
-  });
+	openDB("jate", 1, {
+		upgrade(db) {
+			if (db.objectStoreNames.contains("jate")) {
+				console.log("jate database already exists");
+				return;
+			}
+			db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
+			console.log("jate database created");
+		},
+	});
 
+export const putDb = async (content) => {
+	console.log("PUT to the database");
 
-export const putDb = async (id, value) => {
-  console.log('PUT request to update the jateDB');
+	
+	const jateDb = await openDB("jate", 1);
 
-  const jateDb = await openDB('jate', 1);
-  
-  const tx = jateDb.transaction('jate', 'readwrite');
+	const tx = jateDb.transaction("jate", "readwrite");
 
-  const objStore = tx.objectStore('jate');
- 
-  const req = objStore.put({ id: id, value: value })
+	
+	const store = tx.objectStore("jate");
 
-  const res = await req;
-  console.log('data saved to the jateDB', res);
+	
+	const request = store.put({ id: 1, value: content });
+
+	
+	const result = await request;
+	console.log("data saved to the database", result);
 };
 
+export const getDb = async () => {
+	console.log("GET from the database");
 
-export const getDb = async (value) => {
-  console.log('Getting data from the jateDB');
+	const jateDb = await openDB("jate", 1);
 
-  const jateDb = await openDB('jate', 1);
- 
-  const tx = jateDb.transaction('jate', 'readwrite');
-  
-  const objStore = tx.objectStore('jate');
- 
-  const req = objStore.getAll()
-  
-  const res = await req;
-  console.log('data saved to the jateDB', res);
+	
+	const tx = jateDb.transaction("jate", "readonly");
+
+
+	const store = tx.objectStore("jate");
+
+	
+	const request = store.get(1);
+
+	const result = await request;
+
+	result
+		? console.log("retrieved from the database", result.value)
+		: console.log("not found in the database");
+	return result?.value;
 };
+
 
 initdb();
