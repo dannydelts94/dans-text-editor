@@ -8,8 +8,8 @@ module.exports = () => {
   return {
     mode: 'development',
     entry: {
-      main: '/Users/danielrescigno/pen_bootcamp/challenges/dans-text-editor/client/src/CSS/js/index.js',
-      install: '/Users/danielrescigno/pen_bootcamp/challenges/dans-text-editor/client/src/CSS/js/install.js',
+      main: './src/js/index.js',
+      install: './src/js/install.js',
     },
     output: {
       filename: '[name].bundle.js',
