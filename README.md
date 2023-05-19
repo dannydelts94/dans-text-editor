@@ -6,7 +6,7 @@ The purpose of this project was to put together an offline  text editor app impl
 
 ## Usage
 
-Go to the deployed web app at https://peaceful-fjord-86072.herokuapp.com/ nad click the install button. You will now be able to use the text editor offline.
+Go to the deployed web app at https://peaceful-fjord-86072.herokuapp.com/ and click the install button. You will now be able to use the text editor offline.
 
 ## Credits 
 
